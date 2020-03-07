@@ -1,0 +1,42 @@
+server:
+  port: 8001
+  tomcat:
+    accesslog:
+      encoding: utf-8
+
+spring:
+  application:
+    name: pay-cloud-payment-service
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: spring
+    password: spring
+    url: jdbc:oracle:thin:@localhost:1521:orcl
+    # schema: init-sql/schema.sql
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 数据源其他配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 'x' FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    #    #    filters: stat,wall,log4j
+    filters: star
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+
+mybatis:
+  type-aliases-package: cn.itspring.cloud.**.dto
+  mapper-locations: classpath:mapper/*.xml
+  # 开启驼峰命名匹配规则
+  configuration:
+    map-underscore-to-camel-case: true
